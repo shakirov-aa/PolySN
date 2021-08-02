@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  cassandra:
+    image: cassandra
+    container_name: cassandra
+    ports:
+      - 9042:9042
+    volumes:
+      - ./data/cassandra:/var/lib/cassandra
+    healthcheck:
+      test: [ "CMD", "cqlsh", "-u cassandra", "-p cassandra" ,"-e describe keyspaces" ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
